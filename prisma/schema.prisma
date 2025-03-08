@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Feedback {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  rating      Float
+  createdAt   DateTime @default(now())
+}
+
+model Pajama {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  image       String
+  price       Float
+  season      String
+  type        String
+  gender      String
+  favorite    Boolean
+  on_sale     Boolean
+  sale_percent Float? 
+  sizes       PajamaSize[]
+  sales       Sale_Pajamas[]
+  createdAt   DateTime @default(now())
+}
+
+model PajamaSize {
+  id             String  @id @default(uuid())
+  stock_quantity Int
+  size           String
+  pajamaId       String
+  pajama         Pajama @relation(fields: [pajamaId], references: [id])
+}
+
+model Sale {
+  id              String  @id @default(uuid())
+  buyer_name      String
+  cpf             String
+  price           Float
+  addressId       String?
+  address         Address? @relation(fields: [addressId], references: [id])
+  payment_method  String
+  installments    Int @default(1)
+  card_number     String?
+  pajamas         Sale_Pajamas[]
+  createdAt       DateTime @default(now())
+}
+
+model Sale_Pajamas {
+  id         String  @id @default(uuid())
+  saleId     String
+  pajamaId   String
+  quantity   Int
+  price      Float
+  sale       Sale   @relation(fields: [saleId], references: [id])
+  pajama     Pajama @relation(fields: [pajamaId], references: [id])
+}
+
+model Address {
+  id            String  @id @default(uuid())
+  zip_code      String
+  state         String
+  city          String
+  neighborhood  String
+  address       String
+  number        String
+  sales         Sale[]
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  username String @unique
+  email    String @unique
+  password String
+  createdAt DateTime @default(now())
+}
+

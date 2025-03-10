@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { userRoutes } from './http/controllers/users/routes'
 import { env } from './env'
 import fastifyCors from '@fastify/cors'
+import { feedbackRoutes } from './http/controllers/feedback/routes'
 
 
 export const app = fastify()
@@ -29,6 +30,7 @@ app.register(fastifyCors, {
 })
 
 app.register(userRoutes)
+app.register(feedbackRoutes);
 
 app.setErrorHandler((error, request, reply) => {
     if (error instanceof z.ZodError) {

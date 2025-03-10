@@ -6,7 +6,7 @@ import { z } from "zod"
 export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
     
     const authenticateBodySchema = z.object({
-        identifier: z.string().email().or(z.string()),
+        identifier: z.string(),
         password: z.string().min(6)
     })
 
@@ -47,7 +47,10 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
 
     } catch (err) {
 
-        return reply.status(401).send()
+        if (err instanceof z.ZodError) {
+            return reply.status(400).send({ message: 'Validation error', issues: err.issues });
+        }
+        return reply.status(401).send();
 
     }
     

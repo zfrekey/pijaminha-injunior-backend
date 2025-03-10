@@ -6,11 +6,11 @@ import { z } from "zod"
 export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
     
     const authenticateBodySchema = z.object({
-        email: z.string().email(),
+        identifier: z.string().email().or(z.string()),
         password: z.string().min(6)
     })
 
-    const {email,password} = authenticateBodySchema.parse(request.body)
+    const {identifier,password} = authenticateBodySchema.parse(request.body)
 
     try {
 
@@ -18,7 +18,7 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
         const authenticateUseCase = new AuthenticateUseCase(prismaUsersRepository)
         
         const { user } = await authenticateUseCase.execute({
-            email,
+            identifier,
             password
         })
 

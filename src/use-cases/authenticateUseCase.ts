@@ -5,7 +5,7 @@ import { compare } from "bcryptjs"
 import { InvalidCredentialsError } from "./errors/invalidCredentialsError"
 
 interface AuthenticateUseCaseRequest {
-    email: string,
+    identifier: string,
     password: string
 }
 
@@ -16,9 +16,11 @@ interface AuthenticateUseCaseResponse {
 export class AuthenticateUseCase {
     constructor(private userRepository: UsersRepository) {}
 
-    async execute({email,password}: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
+    async execute({identifier,password}: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
 
-        const user = await this.userRepository.findByEmail(email)
+        let user = await this.userRepository.findByEmailOrUsername(identifier)
+
+        
     
         if(!user){
             throw new UserAlreadyExists()

@@ -48,7 +48,7 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
     } catch (err) {
 
         if (err instanceof z.ZodError) {
-            return reply.status(400).send({ message: 'Validation error', issues: err.issues });
+            return reply.status(400).send({ message: 'Usuário ou senha inválidos', issues: err.issues });
         }
         return reply.status(401).send();
 

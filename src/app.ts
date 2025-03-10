@@ -5,6 +5,10 @@ import { userRoutes } from './http/controllers/users/routes'
 import { env } from './env'
 import fastifyCors from '@fastify/cors'
 import { feedbackRoutes } from './http/controllers/feedback/routes'
+import { pajamaRoutes } from './http/controllers/pajamas/routes'
+
+
+app.register(pajamaRoutes)
 
 
 export const app = fastify()

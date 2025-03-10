@@ -20,7 +20,7 @@ Projeto Final em equipe do Processo Seletivo da IN Junior (2025.1)
 ## Instalação 
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/berthrage/PijamINha-INJunior25.1/
+   git clone https://github.com/zfrekey/pijaminha-injunior-backend
 2. Abra o terminal na pasta do repositório e execute:
    ```sh
    npm install

@@ -1,6 +1,6 @@
 import { Feedback } from "@prisma/client";
 import { FeedbackNotFoundError } from "@/use-cases/errors/feedback-not-found-error";
-import { FeedbackRepository } from "@/repositories/feedbackRepository";
+import { FeedbackRepository } from "@/repositories/feedbacksRepository";
 
 export class GetFeedbackUseCase {
     constructor(private feedbackRepository: FeedbackRepository) {}

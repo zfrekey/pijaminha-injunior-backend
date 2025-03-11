@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
 import { PrismaUsersRepository } from "@/repositories/prisma/prismaUsersRepository"
-import { GetUserUseCase } from "@/use-cases/getUserUseCase"
+import { GetUserUseCase } from "@/use-cases/get-user-use-case"
 import { ResourceNotFoundError } from "@/use-cases/errors/resourceNotFound"
 
 export async function getById(request: FastifyRequest, reply: FastifyReply) {

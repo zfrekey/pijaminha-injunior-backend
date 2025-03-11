@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { CreateFeedbackUseCase } from "@/use-cases/create-feedback-use-case";
 import { FailedToCreateFeedbackError } from "@/use-cases/errors/failed-to-create-feedback-error";
 import { z } from "zod";
-import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbackRepository";
+import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbacksRepository";
 
 export async function createFeedback(request: FastifyRequest, reply: FastifyReply) {
     const createFeedbackSchema = z.object({

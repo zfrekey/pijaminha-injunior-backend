@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { DeleteFeedbackUseCase } from "@/use-cases/delete-feedback-use-case";
 import { FeedbackNotFoundError } from "@/use-cases/errors/feedback-not-found-error";
 import { FailedToDeleteFeedbackError } from "@/use-cases/errors/failed-to-delete-feedback-error";
-import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbackRepository";
+import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbacksRepository";
 
 export async function deleteFeedback(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.params as { id: string };

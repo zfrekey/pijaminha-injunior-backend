@@ -1,6 +1,6 @@
 import { Feedback } from "@prisma/client";
 import { FailedToCreateFeedbackError } from "@/use-cases/errors/failed-to-create-feedback-error";
-import { FeedbackRepository } from "@/repositories/feedbackRepository";
+import { FeedbackRepository } from "@/repositories/feedbacksRepository";
 
 interface CreateFeedbackRequest {
     name: string;

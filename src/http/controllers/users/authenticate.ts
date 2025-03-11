@@ -1,5 +1,5 @@
 import { PrismaUsersRepository } from "@/repositories/prisma/prismaUsersRepository"
-import { AuthenticateUseCase } from "@/use-cases/authenticateUseCase"
+import { AuthenticateUseCase } from "@/use-cases/authenticate-use-case"
 import { FastifyRequest, FastifyReply } from "fastify"
 import { z } from "zod"
 

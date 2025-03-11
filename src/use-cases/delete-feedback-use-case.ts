@@ -1,6 +1,6 @@
 import { FeedbackNotFoundError } from "@/use-cases/errors/feedback-not-found-error";
 import { FailedToDeleteFeedbackError } from "@/use-cases/errors/failed-to-delete-feedback-error";
-import { FeedbackRepository } from "@/repositories/feedbackRepository";
+import { FeedbackRepository } from "@/repositories/feedbacksRepository";
 
 export class DeleteFeedbackUseCase {
     constructor(private feedbackRepository: FeedbackRepository) {}

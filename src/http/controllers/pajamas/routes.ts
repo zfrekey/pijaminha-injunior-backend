@@ -9,5 +9,5 @@ export async function pajamaRoutes(app: FastifyInstance) {
   app.put('/pajamas/:id', updatePajama)
   app.delete('/pajamas/:id', deletePajama)
   app.get('/pajamas/:id', getPajama)
-  app.get('/pajamas', getAllPajamas) 
+  app.get('/pajamas', listPajamas) 
 }

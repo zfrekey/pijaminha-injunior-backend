@@ -1,5 +1,5 @@
 import { PrismaClient, Feedback } from "@prisma/client";
-import { FeedbackRepository } from "../feedbackRepository";
+import { FeedbackRepository } from "../feedbacksRepository";
 
 
 const prisma = new PrismaClient();

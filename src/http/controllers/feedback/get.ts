@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { GetFeedbackUseCase } from "@/use-cases/get-feedback-use-case";
 import { FeedbackNotFoundError } from "@/use-cases/errors/feedback-not-found-error";
-import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbackRepository";
+import { PrismaFeedbackRepository } from "@/repositories/prisma/prismaFeedbacksRepository";
 
 export async function getFeedback(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.params as { id: string };

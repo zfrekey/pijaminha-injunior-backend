@@ -3,7 +3,7 @@ import { Address, Prisma, Sale, Sale_Pajamas } from "@prisma/client";
 export interface SaleUpdateInput{
     buyer_name?: string
     cpf?: string
-    adress?: Address
+    address?: Address
     payment_method?: string
     installments?: number
     card_number?: string

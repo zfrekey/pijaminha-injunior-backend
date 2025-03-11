@@ -8,8 +8,6 @@ import { feedbackRoutes } from './http/controllers/feedback/routes'
 import { pajamaRoutes } from './http/controllers/pajamas/routes'
 
 
-app.register(pajamaRoutes)
-
 
 export const app = fastify()
 

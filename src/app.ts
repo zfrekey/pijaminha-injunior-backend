@@ -34,7 +34,8 @@ app.register(fastifyCors, {
 })
 
 app.register(userRoutes)
-app.register(feedbackRoutes);
+app.register(feedbackRoutes)
+app.register(pajamaRoutes)
 
 app.setErrorHandler((error, request, reply) => {
     if (error instanceof z.ZodError) {

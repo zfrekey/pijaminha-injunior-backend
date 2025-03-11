@@ -1,8 +1,8 @@
 import { PrismaClient, Feedback } from "@prisma/client";
 import { FeedbackRepository } from "../feedbacksRepository";
+import { prisma } from "@/http/lib/prisma";
 
 
-const prisma = new PrismaClient();
 
 export class PrismaFeedbackRepository implements FeedbackRepository {
     async create(data: { name: string; description: string; rating: number }): Promise<Feedback> {

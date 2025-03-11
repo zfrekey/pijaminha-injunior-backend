@@ -17,7 +17,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         gender: z.string(),
         favorite: z.boolean(),
         on_sale: z.boolean(),
-        sale_percent: z.number().optional()
+        sale_percent: z.number().optional(),
     });
 
     const { name, description, image, price, season, type, gender, favorite, on_sale, sale_percent } = createBodySchema.parse(request.body);

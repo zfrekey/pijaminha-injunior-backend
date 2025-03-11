@@ -6,15 +6,18 @@ import { prisma } from "@/http/lib/prisma";
 
 export class PrismaFeedbackRepository implements FeedbackRepository {
     async create(data: { name: string; description: string; rating: number }): Promise<Feedback> {
-        return await prisma.feedback.create({ data });
+        const feedback = await prisma.feedback.create({ data })
+        return feedback
     }
 
     async findById(id: string): Promise<Feedback | null> {
-        return await prisma.feedback.findUnique({ where: { id: id } }); 
+        const feedback = await prisma.feedback.findUnique({ where: { id: id } });
+        return feedback
     }
 
     async delete(id: string): Promise<void> {
-        await prisma.feedback.delete({ where: { id: id } }); 
+        const feedback = await prisma.feedback.findUnique({ where: { id: id } });
+        await feedback
     }
 }
 

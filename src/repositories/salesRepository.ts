@@ -1,18 +1,27 @@
-import { Address, Prisma, Sale, Sale_Pajamas } from "@prisma/client";
+import { Prisma, Sale } from "@prisma/client";
 
 export interface SaleUpdateInput{
     buyer_name?: string
     cpf?: string
-    address?: Address
+    address?: SaleAdress
     payment_method?: string
     installments?: number
     card_number?: string
-    pajamas?:Sale_Pajamas[]
+    pajamas?:SalePajama[]
 }
 
 export interface SalePajama {
-    pajamaId?: string;
-    quantity?: number;
+    zip_code?: string
+    state?: string
+    city?: string
+    neighborhood?: string
+    adress?: string
+    number?: string
+}
+
+export interface SaleAdress {
+    pajamaId?: string
+    quantity?: number
 }
 
 export interface SalesRepository {
@@ -20,7 +29,7 @@ export interface SalesRepository {
 
     findById(id: string):Promise<Sale | null>
     findByCpf(cpf: string): Promise<Sale[] | null>
-    list(): Promise<Sale[]>
+    list(): Promise<Sale[] | null>
 
     delete(id: string): Promise<Sale | null>
     

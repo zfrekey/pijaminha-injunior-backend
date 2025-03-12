@@ -15,5 +15,5 @@ export interface SalesRepository {
     create(data: Prisma.SaleUncheckedCreateInput): Promise<Sale>
     findById(id: string): Promise<Sale | null>
     findByCpf(cpf: string): Promise<Sale[] | null>
-    listAll(): Promise<Sale[]>
+    list(): Promise<Sale[]>
 }

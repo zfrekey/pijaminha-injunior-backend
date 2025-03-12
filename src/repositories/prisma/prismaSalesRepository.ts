@@ -19,16 +19,16 @@ export class PrismaSalesRepository implements SalesRepository {
     }
 
     async findByCpf(cpf: string): Promise<Sale[] | null> {
-        const sales = await prisma.sale.findMany({
+        const sale = await prisma.sale.findMany({
             where: {
                 cpf
             }
         })
-        return sales
+        return sale
     }
 
-    async listAll(): Promise<Sale[]> {
-        const allSales = await prisma.sale.findMany()
-        return allSales
+    async list(): Promise<Sale[]> {
+        const sale = await prisma.sale.findMany()
+        return sale
     }
 }

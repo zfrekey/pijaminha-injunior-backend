@@ -28,7 +28,7 @@ export class PrismaSalesRepository implements SalesRepository {
     }
 
     async list(): Promise<Sale[]> {
-        const sale = await prisma.sale.findMany()
-        return sale
+        const sales = await prisma.sale.findMany()
+        return sales
     }
 }

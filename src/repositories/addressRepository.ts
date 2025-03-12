@@ -1,5 +1,6 @@
 import { Address, Prisma } from "@prisma/client";
 
+/* 
 export interface AddressUpdateInput {
     zip_code?: string
     state?: string
@@ -8,7 +9,8 @@ export interface AddressUpdateInput {
     address?: string
     street?: string
     number?: string
-}
+} 
+*/
 
 export interface AddressRepository {
     create(data: Prisma.AddressUncheckedCreateInput): Promise<Address>

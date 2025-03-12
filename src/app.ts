@@ -6,6 +6,7 @@ import { env } from './env'
 import fastifyCors from '@fastify/cors'
 import { feedbackRoutes } from './http/controllers/feedback/routes'
 import { pajamaRoutes } from './http/controllers/pajamas/routes'
+import { salesRoutes } from './http/controllers/sales/routes'
 
 
 
@@ -34,6 +35,7 @@ app.register(fastifyCors, {
 app.register(userRoutes)
 app.register(feedbackRoutes)
 app.register(pajamaRoutes)
+app.register(salesRoutes)
 
 app.setErrorHandler((error, request, reply) => {
     if (error instanceof z.ZodError) {

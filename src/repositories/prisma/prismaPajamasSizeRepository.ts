@@ -2,9 +2,8 @@ import { prisma } from "@/http/lib/prisma";
 import { PajamaSize, Prisma } from "@prisma/client";
 import { PajamaSizesRepository } from "../pajamasSizesRepository";
 
-export class PrismaPajamasSizeRepository implements PajamaSizesRepository {
-    async create(data: Prisma.PajamaSizeUncheckedCreateInput): Promise<PajamaSize> {
-        const pajamaSize = await prisma.pajamaSize.create({ data });
-        return pajamaSize
+export class PrismaPajamaSizeRepository implements PajamaSizesRepository {
+    async createMany(data: Prisma.PajamaSizeCreateManyInput[]): Promise<void> {
+        await prisma.pajamaSize.createMany({ data });
     }
 }

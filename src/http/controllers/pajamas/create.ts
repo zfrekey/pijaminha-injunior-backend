@@ -1,4 +1,5 @@
 import { PrismaPajamaRepository } from "@/repositories/prisma/prismaPajamasRepository";
+import { PrismaPajamaSizeRepository } from "@/repositories/prisma/prismaPajamasSizeRepository";
 import { CreatePajamaUseCase } from "@/use-cases/create-pajama-use-case";
 import { ItemAlreadyExistsError } from "@/use-cases/errors/item-already-exists";
 import { FastifyRequest, FastifyReply } from "fastify";
@@ -20,20 +21,34 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         sale_percent: z.number().optional(),
     });
 
-    const { name, description, image, price, season, type, gender, favorite, on_sale, sale_percent } = createBodySchema.parse(request.body);
+
+    const { name, description, image, price, season, type, gender, favorite, on_sale, sale_percent } = createBodySchema.parse(request.body)
+
     try {
-        const pajamasRepository = new PrismaPajamaRepository();
-        const createPajamaUseCase = new CreatePajamaUseCase(pajamasRepository);
+        const pajamasRepository = new PrismaPajamaRepository()
+        const pajamasSizeRepostory = new PrismaPajamaSizeRepository()
+        const createPajamaUseCase = new CreatePajamaUseCase(pajamasRepository, pajamasSizeRepostory)
 
-        const pajama = await createPajamaUseCase.execute({ name, description, image, price, season, type, gender, favorite, on_sale, sale_percent });
+        const pajama = await createPajamaUseCase.execute({ 
+            name, 
+            description, 
+            image, 
+            price, 
+            season, 
+            type, 
+            gender, 
+            favorite, 
+            on_sale, 
+            sale_percent
+         });
 
-        return reply.status(201).send(pajama);
+        return reply.status(201).send(pajama)
     } catch (err) {
         if (err instanceof ItemAlreadyExistsError) {
-            return reply.status(500).send({ message: err.message });
+            return reply.status(500).send({ message: err.message })
         }
 
         console.error("ERRO AO CRIAR FEEDBACK:", err);
-        return reply.status(500).send({ message: "Erro interno ao criar pijama" });
+        return reply.status(500).send({ message: "Erro interno ao criar pijama" })
     }
 }

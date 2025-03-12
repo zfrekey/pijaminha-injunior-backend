@@ -16,4 +16,5 @@ export interface SalesRepository {
     findById(id: string): Promise<Sale | null>
     findByCpf(cpf: string): Promise<Sale[] | null>
     list(): Promise<Sale[]>
+    delete(id: string): Promise<Sale | null>
 }

@@ -31,4 +31,13 @@ export class PrismaSalesRepository implements SalesRepository {
         const sales = await prisma.sale.findMany()
         return sales
     }
+
+    async delete(id: string): Promise<Sale | null> {
+        const sale = await prisma.sale.delete({
+            where: {
+                id
+            }
+        })
+        return sale
+    }
 }

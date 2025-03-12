@@ -10,7 +10,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         buyer_name: z.string(),
         cpf: z.string(),
         price: z.number(),
-        payment_method: z.string(),
+        payment_method: z.enum(['Pix', 'Credit Card', 'Debit Card']),
         installments: z.number(),
         card_number: z.string().optional(),
     })

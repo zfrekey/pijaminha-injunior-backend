@@ -4,8 +4,18 @@ import { Address, Prisma } from "@prisma/client";
 
 export class PrismaAddressRepository implements AddressRepository {
     async create(data: Prisma.AddressUncheckedCreateInput): Promise<Address> {
-        const address = await prisma.address.create({ data });
-        return address
+        const address = await prisma.address.create({
+            data: {
+                zip_code: data.zip_code,
+                state: data.state,
+                city: data.city,
+                neighborhood: data.neighborhood,
+                address: data.address,  // ✅ Usando `address` corretamente
+                number: data.number
+            }
+        });
+
+        return address;
     }
 
     async countSales(id: string): Promise<number> {

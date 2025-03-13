@@ -1,20 +1,19 @@
+import { Pajama } from "@prisma/client";
 import { PajamasRepository } from "@/repositories/pajamasRepository";
 import { ResourceNotFoundError } from "./errors/resourceNotFound";
 
 
-export class DeletePajamaUseCase {
+export class GetPajamaByIdUseCase {
     constructor(private pajamasRepository: PajamasRepository) {}
 
-    async execute(id: string): Promise<void> {
-        const existingPajama = await this.pajamasRepository.get(id);
+    async execute(id: string): Promise<Pajama> {
+        const pajama = await this.pajamasRepository.get(id);
 
-        if (!existingPajama) {
+        if (!pajama) {
             throw new ResourceNotFoundError("Pijama");
         }
 
-        await this.pajamasRepository.delete(id);
+        return pajama;
     }
 }
-
-
 

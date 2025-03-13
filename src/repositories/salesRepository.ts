@@ -1,20 +1,27 @@
-import { Prisma, Sale } from "@prisma/client";
+import { Sale, Prisma } from "@prisma/client";
 
-interface SalesRepositoryUpdateInput {
-    buyer_name?: string
-    cpf?: string
-    price?: number
-    address?: string[]
-    pajamas?: string[]
-    payment_method?: string
-    installments?: number
-    card_number?: string
+export interface SaleUpdateInput {
+    buyer_name?: string;
+    cpf?: string;
+    price?: number;
+    address?: {
+        zip_code?: string;
+        state?: string;
+        city?: string;
+        neighborhood?: string;
+        address?: string;
+        number?: string;
+    };
+    payment_method?: string;
+    installments?: number;
+    card_number?: string | null;
+    pajamas?: { pajamaId: string; quantity: number }[];
 }
 
 export interface SalesRepository {
-    create(data: Prisma.SaleUncheckedCreateInput): Promise<Sale>
-    findById(id: string): Promise<Sale | null>
-    findByCpf(cpf: string): Promise<Sale[] | null>
-    list(): Promise<Sale[]>
-    delete(id: string): Promise<Sale | null>
+    create(data: Prisma.SaleCreateInput): Promise<Sale>;
+    get(id: string): Promise<Sale | null>;
+    update(id: string, data: SaleUpdateInput): Promise<Sale | null>;
+    delete(id: string): Promise<Sale>;
+    getAll(): Promise<Sale[]>;
 }

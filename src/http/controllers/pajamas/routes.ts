@@ -1,13 +1,14 @@
-import { FastifyInstance } from 'fastify'
-import { create } from './create'
-//import { updatePajama } from './update'
-//import { deletePajama } from './delete'
-//import { getPajama } from './get'
+import { FastifyInstance } from "fastify";
+import { create } from "@/http/controllers/pajamas/create";
+import { getAllPajamas } from "@/http/controllers/pajamas/get";
+import { getPajamaById } from "@/http/controllers/pajamas/getById";
+import { updatePajama } from "@/http/controllers/pajamas/update";
+import { deletePajama } from "@/http/controllers/pajamas/delete";
 
-export async function pajamaRoutes(app: FastifyInstance) {
-  app.post('/pajamas', create)
-  //app.put('/pajamas/:id', update)
-  //app.delete('/pajamas/:id', deletePajama)
-  //app.get('/pajamas/:id', getPajama)
-  //app.get('/pajamas', listPajamas) 
+export function pajamaRoutes(app: FastifyInstance) {
+    app.post("/pajamas", create);
+    app.get("/pajamas", getAllPajamas);
+    app.get("/pajamas/:id", getPajamaById);
+    app.patch("/pajamas/:id", updatePajama);
+    app.delete("/pajamas/:id", deletePajama);
 }

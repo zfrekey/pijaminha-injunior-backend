@@ -8,4 +8,19 @@ export class PrismaPajamaRepository implements PajamasRepository {
         
         return pajama
     }
+
+    async get(id: string): Promise<Pajama | null> {
+        const pajama = await prisma.pajama.findUnique({
+            where: { id },
+            include: {sizes: true}
+        });
+        
+        return pajama
+    }
+
+    async delete(id: string): Promise<Pajama> {
+        const pajama = await prisma.pajama.delete({ where: { id } });
+        
+        return pajama
+    }
 }

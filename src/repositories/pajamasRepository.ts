@@ -18,5 +18,7 @@ export interface PajamaUpdateInput {
 export interface PajamasRepository {
 
     create(data: Prisma.PajamaCreateInput): Promise<Pajama>
+    get(id: string): Promise<Pajama | null>
+    delete(id: string): Promise<Pajama>
 
 }

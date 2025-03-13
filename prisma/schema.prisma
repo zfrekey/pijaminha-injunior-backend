@@ -23,7 +23,7 @@ model Feedback {
 
 model Pajama {
   id          String  @id @default(uuid())
-  name        String
+  name        String  @unique
   description String
   image       String
   price       Float
@@ -43,7 +43,7 @@ model PajamaSize {
   stock_quantity Int
   size           String
   pajamaId       String
-  pajama         Pajama @relation(fields: [pajamaId], references: [id])
+  pajama         Pajama @relation(fields: [pajamaId], references: [id], onDelete: Cascade)
 }
 
 model Sale {

@@ -3,7 +3,7 @@ import { AddressRepository } from "../addressRepository";
 import { Address, Prisma } from "@prisma/client";
 
 export class PrismaAddressRepository implements AddressRepository {
-    async create(data: Prisma.AddressUncheckedCreateInput): Promise<Address> {
+    async create(data: Prisma.AddressUncheckedCreateInput): Promise<Address | null> {
         const address = await prisma.address.create({ data });
         return address
     }

@@ -11,8 +11,8 @@ export class PrismaPajamaSizeRepository implements PajamaSizesRepository {
         const pajamaSize = await prisma.pajamaSize.findUnique({
             where: {
                 size_pajamaId: {
-                    size,
-                    pajamaId
+                    pajamaId,
+                    size
                 }
             }
         })

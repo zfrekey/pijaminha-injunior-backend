@@ -13,7 +13,7 @@ export interface AddressUpdateInput {
 */
 
 export interface AddressRepository {
-    create(data: Prisma.AddressUncheckedCreateInput): Promise<Address>
+    create(data: Prisma.AddressUncheckedCreateInput): Promise<Address | null>
     countSales(id: string): Promise<number>
     delete(id: string): Promise<Address | null>
 }

@@ -13,6 +13,9 @@ export class PrismaSalesRepository implements SalesRepository {
         const sale = await prisma.sale.findUnique({
             where: {
                 id
+            },
+            include: {
+                Address: true
             }
         })
         return sale
@@ -28,7 +31,10 @@ export class PrismaSalesRepository implements SalesRepository {
     }
 
     async list(): Promise<Sale[]> {
-        const sales = await prisma.sale.findMany()
+        const sales = await prisma.sale.findMany({
+            where: {  },
+            include: { Address: true}
+        })
         return sales
     }
 

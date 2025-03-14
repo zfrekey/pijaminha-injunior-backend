@@ -7,15 +7,6 @@ export class PrismaPajamaRepository implements PajamasRepository {
         const pajama = await prisma.pajama.create({
             data: {
                 ...data,
-                sizes: {
-                    create: [
-                        { size: "PP", stock_quantity: 10 },
-                        { size: "P", stock_quantity: 10 },
-                        { size: "M", stock_quantity: 10 },
-                        { size: "G", stock_quantity: 10 },
-                        { size: "GG", stock_quantity: 10 }
-                    ]
-                }
             },
             include: { sizes: true }
         });

@@ -12,7 +12,7 @@ interface SalesRepositoryUpdateInput {
 }
 
 export interface SalesRepository {
-    create(data: Prisma.SaleUncheckedCreateInput): Promise<Sale | null>
+    create(data: Prisma.SaleUncheckedCreateInput): Promise<Sale>
     findById(id: string): Promise<Sale | null>
     findByCpf(cpf: string): Promise<Sale[] | null>
     list(): Promise<Sale[]>

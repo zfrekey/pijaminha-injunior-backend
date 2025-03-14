@@ -6,6 +6,7 @@ import { SalesRepository } from "@/repositories/salesRepository"
 import { Sale } from "@prisma/client"
 import { InvalidCredentialsError } from "./errors/invalidCredentialsError"
 import { ResourceNotFoundError } from "./errors/resourceNotFound"
+import { InsufficientStockError } from "./errors/insufficient-stock-error"
 
 interface CreateSaleUseCaseRequest {
     buyer_name: string
@@ -36,7 +37,7 @@ interface Pajama {
 }
 
 export class CreateSaleUseCase {
-    constructor(private salesRepository: SalesRepository, private addressRepository: AddressRepository) { }
+    constructor(private salesRepository: SalesRepository, private addressRepository: AddressRepository) {}
 
     async execute({buyer_name, cpf, price, payment_method, installments, card_number, address, pajamas}: CreateSaleUseCaseRequest):Promise<Sale | null>{
 
@@ -47,8 +48,12 @@ export class CreateSaleUseCase {
         for (let i = 0; i < pajamas.length; i++) {
 
             const pajamaSize = await  sizeRepository.findBy(pajamas[i].pajamaId, pajamas[i].size)
-            if(!pajamaSize) throw new Error()
-            if( pajamaSize.stock_quantity < pajamas[i].quantity ) throw new Error()
+            if(!pajamaSize){
+                throw new ResourceNotFoundError()
+            }
+            if( pajamaSize.stock_quantity < pajamas[i].quantity ){
+                throw new InsufficientStockError()
+            }
 
         }
 
@@ -57,7 +62,9 @@ export class CreateSaleUseCase {
             ...address,  
         });
         
-        if(!endereco) throw new InvalidCredentialsError()
+        if(!endereco){
+            throw new InvalidCredentialsError()
+        }
 
         const sale = await this.salesRepository.create({
             buyer_name,
@@ -69,23 +76,29 @@ export class CreateSaleUseCase {
             addressId : endereco.id
         });
 
-        if(!sale) throw new ResourceNotFoundError()
+        if(!sale){
+            throw new ResourceNotFoundError()
+        }
 
         for (let i = 0; i < pajamas.length;  i++){
         
             const pajama = await pajamaRepository.get(pajamas[i].pajamaId)
             
-            if(!pajama) throw new InvalidCredentialsError()
+            if(!pajama){
+                throw new InvalidCredentialsError()
+            }
 
-            await sale_pajamaRepository.firstOrCreate({
+            await sale_pajamaRepository.findOrCreate({
                 saleId: sale.id,
-                pajamasId: pajamas[i].pajamaId,
+                pajamaId: pajamas[i].pajamaId,
                 quantity: pajamas[i].quantity,
                 price : pajama.price * pajamas[i].quantity
                 
             })
-            const pajamaSize = await sizeRepository.find(pajama.id, pajamas[i].size)
-            if( !pajamaSize) throw new ResourceNotFoundError()
+            const pajamaSize = await sizeRepository.findBy(pajama.id, pajamas[i].size)
+            if( !pajamaSize){
+                throw new ResourceNotFoundError()
+            }
 
             const newStock = pajamaSize.stock_quantity - pajamas[i].quantity
             
@@ -96,13 +109,6 @@ export class CreateSaleUseCase {
 
         }
     
-    
-        return { sale } ; 
-
-        // try {
-        //     return await this.salesRepository.create({buyer_name, cpf, price, payment_method, installments, card_number, addressId:addressCreated.id, pajamas});
-        // } catch (error) {
-        //     throw new Error("Erro ao criar venda");
-        // }
+        return sale 
     }
 }

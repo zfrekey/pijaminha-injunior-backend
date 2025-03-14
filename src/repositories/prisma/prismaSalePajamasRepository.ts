@@ -9,4 +9,26 @@ export class PrismaSale_PajamasRepository implements Sales_PajamasRepository {
 
         return sale_pajamas
     }
+
+    async findOrCreate(data: Prisma.Sale_PajamasUncheckedCreateInput): Promise<Sale_Pajamas> {
+        const sale_pajamas = await prisma.sale_Pajamas.upsert({
+            where: {
+                saleId_pajamaId: { 
+                    saleId: data.saleId,
+                    pajamaId: data.pajamaId
+                } 
+            },
+            update: { 
+                quantity: {
+                    increment: data.quantity
+                },
+                price: {
+                    increment: data.price
+                }
+            },
+            create: data
+        })
+
+        return sale_pajamas
+    }
 }

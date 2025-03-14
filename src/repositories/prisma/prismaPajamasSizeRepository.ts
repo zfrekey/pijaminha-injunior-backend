@@ -1,6 +1,6 @@
 import { prisma } from "@/http/lib/prisma";
 import { PajamaSize, Prisma } from "@prisma/client";
-import { PajamaSizesRepository } from "../pajamasSizesRepository";
+import { PajamaSizesRepository, PajamaSizeUpdateInput } from "../pajamasSizesRepository";
 
 export class PrismaPajamaSizeRepository implements PajamaSizesRepository {
     async createMany(data: Prisma.PajamaSizeCreateManyInput[]): Promise<void> {
@@ -18,4 +18,15 @@ export class PrismaPajamaSizeRepository implements PajamaSizesRepository {
         })
         return pajamaSize
     }
+
+    async update(id : string, data: PajamaSizeUpdateInput): Promise<PajamaSize | null>{
+        
+        const pajamaSize = await prisma.pajamaSize.update({
+            where: { id },
+            data
+        })
+        return pajamaSize;
+
+    }
+
 }

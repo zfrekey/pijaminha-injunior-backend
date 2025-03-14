@@ -11,7 +11,7 @@ export class UpdatePajamaUseCase {
         const existingPajama = await this.pajamasRepository.get(id);
 
         if (!existingPajama) {
-            throw new ResourceNotFoundError("Pijama");
+            throw new ResourceNotFoundError();
         }
 
         if (data.sizes && data.sizes.some(s => s.stock_quantity < 0)) {
@@ -21,7 +21,7 @@ export class UpdatePajamaUseCase {
         const updatedPajama = await this.pajamasRepository.update(id, data);
 
         if (!updatedPajama) {
-            throw new ResourceNotFoundError("Pijama"); // ✅ Se o update falhar, lançamos um erro
+            throw new ResourceNotFoundError();
         }
 
         return updatedPajama;

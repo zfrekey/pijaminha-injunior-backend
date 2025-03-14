@@ -11,8 +11,8 @@ interface CreatePajamaUseCaseRequest {
     season: string
     type: string
     gender: string
-    favorite: boolean
-    on_sale: boolean
+    favorite?: boolean
+    on_sale?: boolean
     sale_percent?: number
 }
 

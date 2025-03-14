@@ -16,8 +16,8 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         season: z.string(),
         type: z.string(),
         gender: z.string(),
-        favorite: z.boolean(),
-        on_sale: z.boolean(),
+        favorite: z.boolean().optional(),
+        on_sale: z.boolean().optional(),
         sale_percent: z.number().optional(),
     });
 

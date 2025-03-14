@@ -30,9 +30,9 @@ model Pajama {
   season       String
   type         String
   gender       String
-  favorite     Boolean
-  on_sale      Boolean
-  sale_percent Float?
+  favorite     Boolean? @default(false)
+  on_sale      Boolean? @default(false)
+  sale_percent Float? @default(0)
   sizes        PajamaSize[]
   sales        Sale_Pajamas[]
   createdAt    DateTime       @default(now())

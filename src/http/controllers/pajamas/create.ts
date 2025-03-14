@@ -21,7 +21,6 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         sale_percent: z.number().optional(),
     });
 
-
     const { name, description, image, price, season, type, gender, favorite, on_sale, sale_percent } = createBodySchema.parse(request.body)
 
     try {

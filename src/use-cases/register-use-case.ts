@@ -1,7 +1,6 @@
 import { UsersRepository } from "@/repositories/usersRepository"
 import { hash } from "bcryptjs"
 import { UserAlreadyExists } from "./errors/userAlreadyExists.js"
-import { StringLiteralType } from "typescript"
 
 interface RegisterUseCaseRequest {
     name: string

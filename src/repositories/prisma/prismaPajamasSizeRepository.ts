@@ -8,12 +8,12 @@ export class PrismaPajamaSizeRepository implements PajamaSizesRepository {
     }
 
     async findBy(pajamaId: string, size: string): Promise<PajamaSize | null> {
-        const pajamaSize = await prisma.pajamaSize.findUnique({
+        const pajamaSize = await prisma.pajamaSize.findFirst({
             where: {
-                size_pajamaId: {
-                    pajamaId,
-                    size
-                }
+                AND: [
+                    { pajamaId },
+                    { size },
+                ],
             }
         })
         return pajamaSize

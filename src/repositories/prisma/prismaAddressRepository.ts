@@ -3,8 +3,22 @@ import { AddressRepository } from "../addressRepository";
 import { Address, Prisma } from "@prisma/client";
 
 export class PrismaAddressRepository implements AddressRepository {
-    async create(data: Prisma.AddressUncheckedCreateInput): Promise<Address | null> {
-        const address = await prisma.address.create({ data });
+    async findOrCreate(data: Prisma.AddressUncheckedCreateInput): Promise<Address> {
+        const address = await prisma.address.findFirst({
+            where: {
+                AND: [
+                    { zip_code: data.zip_code },
+                    { number: data.number },
+                ],
+            },
+        });
+    
+        if (!address) {
+            return await prisma.address.create({
+                data,
+            });
+        }
+    
         return address
     }
 

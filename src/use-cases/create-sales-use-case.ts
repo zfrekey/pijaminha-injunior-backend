@@ -11,9 +11,8 @@ import { InsufficientStockError } from "./errors/insufficient-stock-error"
 interface CreateSaleUseCaseRequest {
     buyer_name: string
     cpf: string
-    price: number
     payment_method: string
-    installments: number
+    installments?: number
     card_number?: string
     address: AddressRequest
 
@@ -26,7 +25,6 @@ interface AddressRequest {
     city: string
     neighborhood: string
     address: string 
-    street: string
     number: string
 }
 
@@ -39,11 +37,13 @@ interface Pajama {
 export class CreateSaleUseCase {
     constructor(private salesRepository: SalesRepository, private addressRepository: AddressRepository) {}
 
-    async execute({buyer_name, cpf, price, payment_method, installments, card_number, address, pajamas}: CreateSaleUseCaseRequest):Promise<Sale | null>{
+    async execute({buyer_name, cpf, payment_method, installments, card_number, address, pajamas}: CreateSaleUseCaseRequest):Promise<Sale | null>{
 
         const sizeRepository = new PrismaPajamaSizeRepository()
         const sale_pajamaRepository = new PrismaSale_PajamasRepository()
-        const pajamaRepository = new PrismaPajamaRepository(); 
+        const pajamaRepository = new PrismaPajamaRepository()
+
+        let price = 0
 
         for (let i = 0; i < pajamas.length; i++) {
 
@@ -55,10 +55,16 @@ export class CreateSaleUseCase {
                 throw new InsufficientStockError()
             }
 
+            const pajama = await pajamaRepository.get(pajamas[i].pajamaId)
+            if(!pajama){
+                throw new ResourceNotFoundError()
+            }
+
+            price += pajama.price * pajamas[i].quantity
         }
 
 
-        const endereco = await this.addressRepository.create({
+        const endereco = await this.addressRepository.findOrCreate({
             ...address,  
         });
         

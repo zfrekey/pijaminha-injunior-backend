@@ -53,7 +53,7 @@ model Sale {
   buyer_name     String
   cpf            String
   price          Float
-  addressId      String?
+  addressId      String?        @unique
   address        Address?       @relation(fields: [addressId], references: [id])
   payment_method String
   installments   Int            @default(1)
@@ -68,8 +68,9 @@ model Sale_Pajamas {
   pajamaId String
   quantity Int
   price    Float
-  sale     Sale   @relation(fields: [saleId], references: [id])
+  sale     Sale   @relation(fields: [saleId], references: [id], onDelete: Cascade)
   pajama   Pajama @relation(fields: [pajamaId], references: [id])
+
   @@unique([saleId, pajamaId])
 }
 

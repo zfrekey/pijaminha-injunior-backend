@@ -30,7 +30,7 @@ export class CreatePajamaUseCase {
         const listaSizes = ['PP', 'P', 'M', 'G', 'GG']
         const pajama = await this.pajamaRepository.create({ name, description, image, price, season, type, gender, favorite, on_sale, sale_percent });
 
-        for (let i = 0; i <= 5; i++){
+        for (let i = 0; i < 5; i++){
             lista.push({
                 stock_quantity: 0,
                 size: listaSizes[i],

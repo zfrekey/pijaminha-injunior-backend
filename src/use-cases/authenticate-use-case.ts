@@ -3,6 +3,7 @@ import { UserAlreadyExists } from "./errors/userAlreadyExists"
 import { User } from "@prisma/client"
 import { compare } from "bcryptjs"
 import { InvalidCredentialsError } from "./errors/invalidCredentialsError"
+import { ResourceNotFoundError } from "./errors/resourceNotFound"
 
 interface AuthenticateUseCaseRequest {
     identifier: string,
@@ -23,7 +24,7 @@ export class AuthenticateUseCase {
         
     
         if(!user){
-            throw new UserAlreadyExists()
+            throw new ResourceNotFoundError()
         }
 
         const doesPasswordMatches = await compare(password, user.password)

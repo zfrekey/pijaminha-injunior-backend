@@ -1,6 +1,7 @@
 import { PajamasRepository } from "@/repositories/pajamasRepository"
 import { PajamaSizesRepository } from "@/repositories/pajamasSizesRepository"
 import { Pajama } from "@prisma/client"
+import { randomInt } from "crypto"
 
 interface CreatePajamaUseCaseRequest {
     name: string
@@ -32,7 +33,7 @@ export class CreatePajamaUseCase {
 
         for (let i = 0; i < 5; i++){
             lista.push({
-                stock_quantity: 0,
+                stock_quantity: randomInt(0,15),
                 size: listaSizes[i],
                 pajamaId: pajama.id
             })

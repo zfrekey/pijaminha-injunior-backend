@@ -9,9 +9,9 @@ export async function list(request: FastifyRequest, reply: FastifyReply) {
     try {
         const prismaFeedbackRepository = new PrismaFeedbackRepository()
         const listFeedbacksUseCase = new ListFeedbackUseCase(prismaFeedbackRepository)
-        const feedbacks = await listFeedbacksUseCase.execute()
+        const { feedback } = await listFeedbacksUseCase.execute()
 
-        return reply.status(200).send( feedbacks )
+        return reply.status(200).send( feedback )
     } catch (err) {
         if (err instanceof ResourceNotFoundError) {
             return reply.status(404).send({ message: "Usuários não encontrados" })

@@ -8,7 +8,7 @@ export async function createFeedback(request: FastifyRequest, reply: FastifyRepl
     const createFeedbackSchema = z.object({
         name: z.string(),
         description: z.string(),
-        rating: z.number().min(0).max(5)
+        rating: z.number().min(0).max(5).positive()
     });
 
     try {
